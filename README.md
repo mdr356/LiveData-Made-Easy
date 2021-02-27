@@ -17,10 +17,13 @@ private MutableLiveData<String> name;
 ### MutableLiveData has two public methods
 ```kotlin
 1. void postValue(T value)
-  - This method works on both the **main and brackground thread**
-2. void setValue(T value)
-  - This only works on main thread.
 ```
+This method works on both the **main and brackground thread**
+```kotlin
+2. void setValue(T value)
+```
+This only works on main thread.
+
 ### Code for updating LiveData using setValue and postValue
 ```kotlin
 name.setValue(/**updated data**/)  // main and background thread
