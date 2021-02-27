@@ -10,4 +10,52 @@ Before LiveData notifies any observer, it will check if the observer is live or 
 
 ## Instance of LiveData
 
+MutableLiveData that will be used for updating the variable *name*
+```kotlin
+private MutableLiveData<String> name;
+```
+### MutableLiveData has two public methods
+```kotlin
+1. void postValue(T value)
+  - This method works on both the **main and brackground thread**
+2. void setValue(T value)
+  - This only works on main thread.
+```
+### Code for updating LiveData using setValue and postValue
+```kotlin
+name.setValue(/**updated data**/)  // main and background thread
 
+OR
+
+name.postValue(/**updated data**/) // main thread only
+```
+One either one of these is called, any observers will be updated accordingly.
+
+## Observers
+### Assuming that our data is inside a viewModel
+```kotlin
+class MainViewModel: ViewModel() {
+
+    init {
+        getName()
+    }
+    lateinit var name: MutableLiveData<String>
+    
+    private fun getName() {
+        name = MutableLiveData()
+        name.postValue("Jonny")
+    }
+    ...
+```
+
+### The Observer(s)
+```kotlin
+ // ViewModel Instanct
+ val mainViewModel = ViewModelProvider(this,).get(MainViewModel::class.java)
+ 
+ //Observer
+ mainViewModel.name.observe(this, { 
+            name -> 
+            // if there is a change in data then that data will be reflected to all the observers
+})
+```
