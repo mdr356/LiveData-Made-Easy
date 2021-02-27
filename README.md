@@ -57,7 +57,7 @@ class MainViewModel: ViewModel() {
  val mainViewModel = ViewModelProvider(this,).get(MainViewModel::class.java)
  
  //Observer
- mainViewModel.name.observe(this, { 
+ mainViewModel.name.observe(this, Observer { 
             name -> 
             // if there is a change in data then that data will be reflected to all the observers
 })
